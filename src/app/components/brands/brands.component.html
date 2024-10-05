@@ -1,0 +1,22 @@
+<section  class="my-2 py-5 ">
+    <h2 class="text-main fw-bolder fs-4 my-3 text-center">{{'NAV.BRANDS'|translate}}</h2>
+    <div class="row position-relative">
+        @for (brand of brandsList; track brand._id) 
+        {
+            <div class="col-md-2">
+            <img [src]="brand.image" class="w-100 shadow rounded-5 my-2 cr" [alt]="brand.name" (click)="imgClick(brand.image)">
+            <h2 class="text-main text-center small shadow">{{brand.name}}</h2>
+            </div>
+        }
+    </div>
+
+
+    @if (isClicked) 
+    {
+    <div (click)="close()" class="position-absolute top-0 bottom-0 start-0 end-0 d-flex align-items-center justify-content-center position-fixed" style="min-height:100vh ;;background-color: rgba(0, 0, 0, .7);">
+            <img (click)="$event.stopPropagation()" [src]="Src" class="w-50 h-50" alt="">
+    </div>
+    }
+</section> 
+
+

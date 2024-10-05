@@ -1,0 +1,36 @@
+@if (specificProduct)
+{
+    <section class="bg-main-light rounded-4 my-3 mt-1 p-2 shadow">
+        <h2 class="text-main fw-bolder fs-5 my-3 text-center">Product Details</h2>
+        <div class="row align-items-center">
+                <div class="col-md-3">
+                    <img [src]="specificProduct.imageCover" class="w-100" [alt]="specificProduct.title">
+                </div>
+                <div class="col-md-9">
+                <h3 class="fw-bold">{{specificProduct.title}}</h3>
+                <small class="text-muted my-2 fw-bold">{{specificProduct.description}}</small>
+                <h2 class="text-main small fw-bold mt-1">{{specificProduct.category.name}}</h2>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="text-main fw-bolder">{{specificProduct.price|currency:'EBP'}}</span>
+                    <div>
+                        @for (star of [1,2,3,4,5].slice(0,specificProduct.ratingsAverage); track $index) 
+                            {
+                                <span><i class="fas fa-star rating-color"></i></span>
+                            }
+                            @if (specificProduct.ratingsAverage %1 !== 0) {
+                                <i class="fas fa-star-half-stroke rating-color"></i>
+                            }
+                            <span class="text-muted">{{specificProduct.ratingsAverage}}</span>
+                    </div>
+                </div>
+                <button (click)="addToCart(specificProduct.id)" class= "mb-4 btn btn-main mb-0 mt-5 w-100 rounded-3 mx-auto d-block">+Add to cart</button>
+                <a class="customm-link" routerLink="/products"><span class="fw-bold">>>></span> Click here to get all products <span class="fw-bold">>>></span> </a>
+            </div>
+        </div>
+    </section>
+}
+
+
+
+
+

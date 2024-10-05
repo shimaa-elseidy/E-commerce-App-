@@ -1,0 +1,36 @@
+.grid-container {  
+    display: grid;  
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Number of columns */  
+    gap: 20px; /* Space between items */  
+}  
+/* Additional styles for improving appearance */  
+.order-details, .cart-items {  
+    margin-bottom: 20px; /* Space at the bottom for separation */  
+}  
+
+.order-summary, .shipping-address,   .user-details, .cart-item {  
+    transition: box-shadow 0.3s ease; /* Smooth hover effect */  
+}  
+
+.order-summary:hover, .shipping-address:hover, .user-details:hover, .cart-item:hover {  
+    box-shadow: 0 4px 15px rgba(0, 31, 4, 0.093); /* Shadow for hover effect */ 
+    cursor: pointer; 
+}  
+
+.cart-item {  
+    display: flex; /* Flex to align items horizontally */  
+    gap: 15px; /* Space between image and text */  
+    padding: 10px;  
+    border-bottom: 1px solid #e0e0e0; /* Separator line */  
+}  
+
+.cart-item img {  
+    width: 80px; /* Fixed width for images */  
+    height: auto;  
+    border-radius: 4px; /* Slightly rounded corners */  
+}  
+
+.total-price {  
+    font-size: 1.2em; /* Larger font size for total price */  
+    font-weight: bold; /* Bold style for total price */  
+}

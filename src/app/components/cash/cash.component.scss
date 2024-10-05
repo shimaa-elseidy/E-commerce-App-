@@ -1,0 +1,47 @@
+.grid-container {  
+    display: grid;  
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Adjusted for better responsive design */  
+    gap: 20px;  
+}  
+
+.order-details, .cart-items {  
+    margin-bottom: 15px; /* Reduce margin for neatness */  
+}  
+
+.order-summary, .shipping-address, .user-details, .cart-item {  
+    transition: box-shadow 0.3s ease, transform 0.2s; /* Include transform for scale on hover */  
+}  
+
+.order-summary:hover, .shipping-address:hover, .user-details:hover, .cart-item:hover {  
+    box-shadow: 0 4px 15px rgba(0, 31, 4, 0.093);  
+    transform: scale(1.02); /* Slightly increases size for hover effect */  
+    cursor: pointer;  
+}  
+
+.cart-item {  
+    display: flex;  
+    gap: 15px;  
+    padding: 12px; /* Increased padding for better hit area */  
+    border-bottom: 1px solid #e0e0e0;  
+}  
+
+.cart-item img {  
+    width: 80px;  
+    height: auto;  
+    border-radius: 4px;  
+}  
+
+.total-price {  
+    font-size: 1.2em;  
+    font-weight: bold;  
+    color: #2c3e50; /* Darker shade for total price */  
+}  
+
+.btn-main {  
+    transition: background-color 0.3s ease;  
+}  
+
+.btn-main:hover {  
+    background-color: #27ae60; /* Change for hover effect */  
+    color: white;  
+}

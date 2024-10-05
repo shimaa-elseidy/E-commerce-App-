@@ -1,0 +1,55 @@
+<section class="order-section bg-main-light rounded-4 my-2 p-2 shadow">    
+    <ng-container *ngIf="order">  
+        <div class="container">  
+            <h1 class="text-main h2 text-center my-3 fw-bold">Order Details</h1>  
+            
+            <div class="order-timestamp">  
+                <p><strong class="text-main small fw-semibold">Order Created At:</strong> {{ order.createdAt | date:'medium' }}</p>  
+            </div>  
+            
+            <div class="order-details grid-container">  
+                <div class="user-details bg-main-light rounded-4 my-2 p-2 shadow">  
+                    <h2 class="small fw-semibold text-center text-main">User Information:</h2>  
+                    <p><strong class="text-main small fw-semibold">Name:</strong> {{ order.user.name }}</p>  
+                    <p><strong class="text-main small fw-semibold">Phone:</strong> {{ order.shippingAddress.phone }}</p>  
+                </div>  
+                
+                <div class="order-summary bg-main-light rounded-4 my-2 p-2 shadow">  
+                    <h2 class="small fw-semibold text-center text-main">Order Information:</h2>  
+                    <p><strong class="text-main small fw-semibold">Order ID:</strong> {{ order.id }}</p>  
+                    <p><strong class="text-main small fw-semibold">Payment Method:</strong> Cash</p>  
+                    <p><strong class="text-main small fw-semibold">Payment Status:</strong> <span class="status unpaid">Not Paid</span></p>  
+                    <p><strong class="text-main small fw-semibold">Delivery Status:</strong> <span class="status not-delivered">Not Delivered</span></p>  
+                    <p><strong class="text-main small fw-semibold">Total Order Price:</strong> {{ order.totalOrderPrice }} EGP</p>  
+                </div>  
+                
+                <div class="shipping-address bg-main-light rounded-4 my-2 p-2 shadow">  
+                    <h2 class="small fw-semibold text-center text-main">Shipping Address:</h2>  
+                    <p><strong class="text-main small fw-semibold">Details:</strong> {{ order.shippingAddress.details }}</p>  
+                    <p><strong class="text-main small fw-semibold">City:</strong> {{ order.shippingAddress.city }}</p>  
+                </div>  
+            </div> 
+            <div class="cart-items bg-main-light rounded-4 my-2 p-2 shadow">  
+                <h2 class="small fw-semibold text-center text-main">Cart Items:</h2> 
+                <div class="row flex-row">
+                @for (item of  order.cartItems; track $index) 
+                        {
+                            <div class="col-md-4 cart-item my-1">
+                            <img [src]="item.product.imageCover" class="w-25 my-1" alt="{{ item.product.title }}" />  
+                            <div class="item-details">  
+                                <h4 class="text-main small fw-semibold">{{ item.product.title }}</h4>  
+                                <p><strong class="text-main">Count:</strong> {{ item.count }}</p>  
+                                <p><strong class="text-main">Price:</strong> {{ item.price }} EGP</p>  
+                            </div> 
+                    </div>
+                        }
+                </div>
+                <div class="total-price text-main text-center">  
+                    <strong>Total Price:</strong> {{ order.totalOrderPrice }} EGP  
+                </div> 
+                <hr>
+                <button class="btn-main mt-3 d-block mx-auto" routerLink="/home">Go To Home Page</button>  
+            </div>  
+        </div>  
+    </ng-container>  
+</section>

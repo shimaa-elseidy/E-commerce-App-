@@ -1,0 +1,12 @@
+<section class="my-2 py-5 ">
+    <h2 class="text-main fw-bolder fs-4 my-3 text-center">{{'HOME.POPULAR_CATEGORIES'|translate}}</h2>
+<div class="row g-2">
+    @for (cat of catList; track cat._id) 
+    {
+        <div class="col-md-3">
+            <h2 class="text-main small fw-bold text-center">{{cat.name}}</h2>
+            <img [src]="cat.image" [alt]="cat.name" class="w-100" height="400px">
+        </div>
+    }
+</div>
+</section>

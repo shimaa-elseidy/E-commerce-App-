@@ -1,0 +1,43 @@
+<section>
+    <h1 class="h2 text-center my-2 text-main fw-bold">Order Details</h1>
+        <div class="container">
+            <form [formGroup]="ordersForm" (ngSubmit)="onSubmit()" class="bg-main-light shadow rounded-4 my-2 p-2">
+                <div class="form-group">
+                    <label class="ms-2" for="details">Details:</label>
+                    <textarea id="details" formControlName="details" class="form-control rounded-5"></textarea>
+                    @if (ordersForm.get('details')?.errors && ordersForm.get('details')?.touched && ordersForm.get('details')?.dirty )
+                    {
+                        <div *ngIf="ordersForm.get('details')?.invalid" class="text-danger">
+                            <div *ngIf="ordersForm.get('details')?.hasError">Details is required.</div>
+                            <div *ngIf="ordersForm.get('details')?.hasError('minlength')">details must be more than 10 char.</div>
+                        </div>
+                    }
+                </div>
+                <div class="form-group">
+                    <label class="ms-2" for="phone">Phone Number:</label>
+                    <input id="phone" formControlName="phone" class="form-control rounded-5" />
+                        @if (ordersForm.get('phone')?.errors && ordersForm.get('phone')?.touched && ordersForm.get('phone')?.dirty )
+                        {
+                            <div *ngIf="ordersForm.get('phone')?.invalid" class="text-danger">
+                                <div *ngIf="ordersForm.get('phone')?.hasError('required')">Phone number is required.</div>
+                                <div *ngIf="ordersForm.get('phone')?.hasError">Enter valid phone.</div>
+                            </div>
+                        }
+                </div>
+                <div class="form-group">
+                    <label class="ms-2" for="city">City:</label>
+                    <input id="city" formControlName="city" class="form-control rounded-5" />
+                    @if (ordersForm.get('city')?.errors && ordersForm.get('city')?.touched && ordersForm.get('city')?.dirty )
+                    {
+                        <div *ngIf="ordersForm.get('city')?.invalid" class="text-danger">
+                            <div *ngIf="ordersForm.get('city')?.hasError">City is required.</div>
+                        </div>
+                    }
+                </div>
+                <button type="submit" class="btn my-3 btn-outline-success rounded-5" [disabled]="ordersForm.invalid">Confirm Order</button>
+            </form>
+        </div>
+        
+</section>
+
+

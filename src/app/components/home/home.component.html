@@ -1,0 +1,102 @@
+<!----------------------------start of home Main slider -------------------------------->
+<section class="p-5">
+    <div class="row g-0">
+        <div class="col-md-10">
+            <div>
+                <owl-carousel-o [options]="customOptionsMainSlider">
+                    <ng-template carouselSlide>
+                        <img src="./assets/images/img4.avif" class="w-100" alt="#" height="300px">
+                    </ng-template>
+                    <ng-template carouselSlide>
+                        <img src="./assets/images/img2.avif" class="w-100" alt="#" height="300px">
+                    </ng-template>
+                    <ng-template carouselSlide>
+                        <img src="./assets/images/img3.avif" class="w-100" alt="#" height="300px">
+                    </ng-template>
+                    <ng-template carouselSlide>
+                        <img src="./assets/images/img1.avif" class="w-100" alt="#" height="300px">
+                    </ng-template>
+                    <ng-template carouselSlide>
+                        <img src="./assets/images/img5.avif" class="w-100" alt="#" height="300px">
+                    </ng-template>
+                    <ng-template carouselSlide>
+                        <img src="./assets/images/img6.avif" class="w-100" alt="#" height="300px">
+                    </ng-template>
+                    <ng-template carouselSlide>
+                        <img src="./assets/images/img7.avif" class="w-100" alt="#" height="300px">
+                    </ng-template>
+                    <ng-template carouselSlide>
+                        <img src="./assets/images/slider-image-2.jpeg" class="w-100" alt="#" height="300px">
+                    </ng-template>
+                    <ng-template carouselSlide>
+                        <img src="./assets/images/slider-2.jpeg" class="w-100" alt="#" height="300px">
+                    </ng-template>
+                    <ng-template carouselSlide>
+                        <img src="./assets/images/slider-image-3.jpeg" class="w-100" alt="#" height="300px">
+                    </ng-template>
+                </owl-carousel-o>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div>
+                <img src="./assets/images/grocery-banner-2.jpeg" class="w-100" alt="#" height="150px">
+                <img src="./assets/images/grocery-banner.png"    class="w-100" alt="#" height="150px">
+            </div>
+        </div>
+    </div>
+</section>
+<!----------------------------end of home Main slider ---------------------------------->
+
+
+<!-----------------------------start of home popularCategories -------------------------->
+<section>
+    <h2 class="text-main fw-bolder fs-4 text-center my-1">{{'HOME.POPULAR_CATEGORIES'|translate}}</h2>
+    <owl-carousel-o [options]="customOptionsCategories">
+        @for (cat of categoriesList(); track cat._id) 
+        {
+        <ng-template carouselSlide [id]="cat._id"> 
+            <img [src]="cat.image" [alt]="cat.name" class="w-100" height="250 px"  routerLink='/categories'>
+            <h3 class="text-main text-center h6">{{cat.name}}</h3>
+        </ng-template>
+        }
+    </owl-carousel-o>
+</section>
+<!----------------------------end of home popularCategories  ---------------------------->
+
+<!----------------------------start of home products ------------------------------------>
+<section>
+    <h2 class="text-main fw-bolder fs-4 my-3 text-center">{{'HOME.POPULAR_PRODUCTS'|translate}}</h2>
+    <input [(ngModel)]='text' type="search" class="w-50 form-control mx-auto my-2 rounded-5" placeholder="{{'HOME.SEARCH_BY_NAME'|translate}}">
+    <div> 
+        <div class="row g-3 my-1">
+            @for (product of productList().slice(0,12) | searchPipe:text() ; track product.id) {
+                <div class="col-md-2">
+                    <div class="product card p-2">
+                        <div>
+                            <div  [routerLink]="['/details', product.id]">
+                                <img [src]="product.imageCover" [alt]="product.title" class="w-100">
+                                <h3 class="small text-main mt-1 fw-bold text-center">{{product.category.name}}</h3>
+                                <h4 class="h6 mt-1 text-center">{{product.title.split(' ',2).join(' ')}}</h4>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="text-main fw-bold">{{product.price | currency:'GBP' }}</span>
+                                    <div>
+                                        @for (star of [1,2,3,4,5].slice(0,product.ratingsAverage); track $index) 
+                                            {
+                                                <span><i class="fas fa-star rating-color"></i></span>
+                                            }
+                                            @if (product.ratingsAverage %1 !== 0) {
+                                                <i class="fas fa-star-half-stroke rating-color"></i>
+                                            }
+                                            <span class="text-muted">{{product.ratingsAverage}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                                <div><button (click)="addToCart(product.id)" class= "btn btn-main mt-1 w-100 rounded-4 ">{{'HOME.ADD_TO_CART'|translate}}</button></div>
+                        </div>
+                    </div>
+                </div>
+            }
+            </div>
+    </div>
+</section>
+<!------------------------------end of home products ------------------------------------>
