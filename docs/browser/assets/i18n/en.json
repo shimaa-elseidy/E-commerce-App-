@@ -1,0 +1,16 @@
+{  
+    "NAV": {  
+        "HOME": "Home",  
+        "PRODUCTS": "Products",  
+        "CATEGORIES": "Categories",  
+        "BRANDS": "Brands",  
+        "SIGNOUT": "Sign Out",
+        "LANGUAGE" : "LANG"
+    },  
+    "HOME": {  
+        "POPULAR_CATEGORIES": "Popular Categories🛒",  
+        "POPULAR_PRODUCTS": "Shop Popular Products🛒",  
+        "SEARCH_BY_NAME": "Search by name...",  
+        "ADD_TO_CART": "+Add to cart"  
+    }  
+}
