@@ -72,12 +72,31 @@ function shareAppLink() {
     }
 }
 
+let deferredPrompt;
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+});
+
 function installPWA() {
-    if ('serviceWorker' in navigator) {
-        alert('Install our app for better experience!');
-        window.open(window.location.origin, '_blank');
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+                console.log('User accepted the install prompt');
+            }
+            deferredPrompt = null;
+        });
     } else {
-        alert('Your browser does not support app installation');
+        // Fallback for mobile browsers
+        if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+            alert('To install: Tap Share button and then "Add to Home Screen"');
+        } else if (/Android/.test(navigator.userAgent)) {
+            alert('To install: Tap menu (⋮) and then "Add to Home screen"');
+        } else {
+            alert('App installation available on mobile devices');
+        }
     }
 }
 </script>
