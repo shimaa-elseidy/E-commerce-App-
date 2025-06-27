@@ -1,4 +1,4 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, isDevMode } from '@angular/core';
 import { provideRouter, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -17,6 +17,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { spinnerInterceptor } from './interceptors/spinner.interceptor';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { provideServiceWorker } from '@angular/service-worker';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -26,27 +27,24 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes, withViewTransitions()),
     provideClientHydration(),
-    provideHttpClient(
-      withFetch(),
-      withInterceptors([
+    provideHttpClient(withFetch(), withInterceptors([
         headersInterceptor,
         errorsInterceptor,
         spinnerInterceptor,
-      ])
-    ),
+    ])),
     // importProvidersFrom(BrowserAnimationsModule)
     provideAnimations(),
-    
-    importProvidersFrom(ToastrModule.forRoot(),
-                        NgxSpinnerModule.forRoot(),
-                        TranslateModule.forRoot({
-                          defaultLanguage:'ar',
-                          loader: {
-                            provide: TranslateLoader,
-                            useFactory: createTranslateLoader,
-                            deps: [HttpClient],
-                          },
-                        })
-                      ),
-                    ],
+    importProvidersFrom(ToastrModule.forRoot(), NgxSpinnerModule.forRoot(), TranslateModule.forRoot({
+        defaultLanguage: 'ar',
+        loader: {
+            provide: TranslateLoader,
+            useFactory: createTranslateLoader,
+            deps: [HttpClient],
+        },
+    })),
+    provideServiceWorker('ngsw-worker.js', {
+        enabled: !isDevMode(),
+        registrationStrategy: 'registerWhenStable:30000'
+    })
+],
                   }

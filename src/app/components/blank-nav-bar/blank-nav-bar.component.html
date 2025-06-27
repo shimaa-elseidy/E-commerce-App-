@@ -1,89 +1,149 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top"> 
+<nav class="navbar navbar-expand-lg fixed-top animate-fadeInUp"> 
     <div class="container">
-        <a class="navbar-brand cr">
-            <img src="./assets/images/freshcart-logo.svg" routerLink="home" alt="#">
+        <a class="navbar-brand cr animate-slideInRight">
+            <img src="./assets/70.png" routerLink="home" alt="FreshCart Logo" style=" width:100px ;">
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">      
+        <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">      
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
-            <ul class="navbar-nav  mb-2 mb-lg-0">
+            <ul class="navbar-nav mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link text-black cr" routerLink="home" routerLinkActive="active-link">
+                    <a class="nav-link cr" routerLink="home" routerLinkActive="active-link">
+                        <i class="fas fa-home me-2"></i>
                         {{ 'NAV.HOME' | translate }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-black cr" routerLink="products" routerLinkActive="active-link">
+                    <a class="nav-link cr" routerLink="products" routerLinkActive="active-link">
+                        <i class="fas fa-box me-2"></i>
                         {{ 'NAV.PRODUCTS' | translate }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-black cr" routerLink="categories" routerLinkActive="active-link">
+                    <a class="nav-link cr" routerLink="categories" routerLinkActive="active-link">
+                        <i class="fas fa-th-large me-2"></i>
                         {{ 'NAV.CATEGORIES' | translate }}
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-black cr" routerLink="brands" routerLinkActive="active-link">
+                    <a class="nav-link cr" routerLink="brands" routerLinkActive="active-link">
+                        <i class="fas fa-tags me-2"></i>
                         {{ 'NAV.BRANDS' | translate }}
                     </a>
                 </li>
             </ul>
-            <ul class="navbar-nav  mb-2 mb-lg-0">
+            <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
+                <!-- Cart Icon with Badge -->
+                @if (isLoggedIn()) {
+                    <li class="nav-item me-3">
+                        <a class="nav-link position-relative cart-link" routerLink="cart" routerLinkActive="custom-link">
+                            <i class="fas fa-shopping-cart fa-lg"></i>
+                            <span class="bg-main badge position-absolute top-0 start-100 translate-middle rounded-pill cart-badge">{{count()}}</span>
+                        </a>
+                    </li>
+                }
                 
-                <li class="nav-item">
-                    <a class="nav-link position-relative" routerLink="cart" routerLinkActive="customm-link text-white">
-                        <i class="fa-solid fa-cart-plus fa-2x"></i>
-                        <span class="bg-main badge position-absolute top-0 start-0 rounded-5 ">{{count()}}</span>
+                <!-- Social Media Icons -->
+                <li class="nav-item dropdown me-2">
+                    <a class="nav-link dropdown-toggle social-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-share-alt"></i>
                     </a>
+                    <ul class="dropdown-menu dropdown-menu-end social-dropdown">
+                        <li><a class="dropdown-item social-icon" href="#" target="_blank">
+                            <i class="fab fa-facebook-f me-2"></i> Facebook
+                        </a></li>
+                        <li><a class="dropdown-item social-icon" href="#" target="_blank">
+                            <i class="fab fa-twitter me-2"></i> Twitter
+                        </a></li>
+                        <li><a class="dropdown-item social-icon" href="#" target="_blank">
+                            <i class="fab fa-instagram me-2"></i> Instagram
+                        </a></li>
+                        <li><a class="dropdown-item social-icon" href="#" target="_blank">
+                            <i class="fab fa-linkedin-in me-2"></i> LinkedIn
+                        </a></li>
+                        <li><a class="dropdown-item social-icon" href="#" target="_blank">
+                            <i class="fab fa-youtube me-2"></i> YouTube
+                        </a></li>
+                    </ul>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link cr text-black">
-                        <i class="fa-brands fa-facebook"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link cr text-black">
-                        <i class="fa-brands fa-twitter"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link cr text-black">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link cr text-black">
-                        <i class="fa-brands fa-linkedin"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link cr text-black">
-                        <i class="fa-brands fa-youtube"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a (click)="logout()" class="nav-link cr text-muted text-black">
-                        {{ 'NAV.SIGNOUT' | translate }}
-                    </a>
-                </li>
-                <!-- Dropdown Language Selector -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                
+                <!-- User Actions -->
+                @if (isLoggedIn()) {
+                    <li class="nav-item">
+                        <a (click)="logout()" class="nav-link cr btn btn-outline-danger btn-sm">
+                            <i class="fas fa-sign-out-alt me-2"></i>
+                            {{ 'NAV.SIGNOUT' | translate }}
+                        </a>
+                    </li>
+                } @else {
+                    <li class="nav-item me-2">
+                        <a routerLink="/login" class="nav-link cr btn btn-sm login-btn" style="border: 1px solid #EF1603; color: #EF1603;">
+                            <i class="fas fa-sign-in-alt me-2"></i>
+                            {{ 'NAV.SIGNIN' | translate }}
+                        </a>
+                    </li>
+                    <li class="nav-item me-2">
+                        <a routerLink="/register" class="nav-link cr btn btn-sm register-btn" style="background-color: #EF1603; color: white; border: 1px solid #EF1603;">
+                            <i class="fas fa-user-plus me-2"></i>
+                            {{ 'NAV.REGISTER' | translate }}
+                        </a>
+                    </li>
+
+                }
+                <!-- Enhanced Language Selector -->
+                <li class="nav-item dropdown ms-2">
+                    <a class="nav-link dropdown-toggle btn btn-outline-primary btn-sm" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-globe me-2"></i>
                         {{ 'NAV.LANGUAGE' | translate }}
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-                        <li><a class="dropdown-item cr" [class.bg.info]="_TranslateService.currentLang == 'en' "  (click)="changeLanguage('en')">EN
-                            <span class="checkmark" *ngIf="_TranslateService.currentLang == 'en'">✓</span>
-                        </a></li>
-                        
-                        
-                        <li><a class="dropdown-item cr" [class.bg.info]="_TranslateService.currentLang == 'ar' " (click)="changeLanguage('ar')">AR
-                            <span class="checkmark" *ngIf="_TranslateService.currentLang == 'ar'">✓</span>
-                        </a></li> 
-            </ul>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                        <li>
+                            <a class="dropdown-item cr d-flex align-items-center justify-content-between" 
+                               [class.active]="_TranslateService.currentLang == 'en'" 
+                               (click)="changeLanguage('en')">
+                                <span><i class="flag-icon flag-icon-us me-2"></i>English</span>
+                                <i class="fas fa-check text-success" *ngIf="_TranslateService.currentLang == 'en'"></i>
+                            </a>
+                        </li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li>
+                            <a class="dropdown-item cr d-flex align-items-center justify-content-between" 
+                               [class.active]="_TranslateService.currentLang == 'ar'" 
+                               (click)="changeLanguage('ar')">
+                                <span><i class="flag-icon flag-icon-sa me-2"></i>العربية</span>
+                                <i class="fas fa-check text-success" *ngIf="_TranslateService.currentLang == 'ar'"></i>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+
+<!-- Install App Popup -->
+@if (showPopup) {
+    <div class="install-popup-overlay" (click)="closePopup()">
+        <div class="install-popup" (click)="$event.stopPropagation()">
+            <div class="popup-header">
+                <h5 class="mb-0"><i class="fas fa-mobile-alt me-2"></i>Install FreshCart App</h5>
+                <button class="btn-close" (click)="closePopup()"></button>
+            </div>
+            <div class="popup-body">
+                <p class="text-muted mb-3">Get the best shopping experience with our mobile app!</p>
+                <div class="features mb-3">
+                    <div class="feature-item"><i class="fas fa-check text-success me-2"></i>Faster browsing</div>
+                    <div class="feature-item"><i class="fas fa-check text-success me-2"></i>Push notifications</div>
+                    <div class="feature-item"><i class="fas fa-check text-success me-2"></i>Offline access</div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button class="btn btn-sm" style="background-color: #EF1603; color: white;" (click)="installApp()">
+                        <i class="fas fa-download me-2"></i>Install Now
+                    </button>
+                    <button class="btn btn-outline-secondary btn-sm" (click)="closePopup()">Maybe Later</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

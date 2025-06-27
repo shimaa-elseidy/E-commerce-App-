@@ -1,0 +1,113 @@
+/* Footer Styles */
+.qr-container {
+  position: relative;
+  display: inline-block;
+}
+
+.qr-code {
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.qr-code:hover {
+  transform: scale(1.05);
+}
+
+/* Animated Scan Wave Effect */
+.scan-wave {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #fff, transparent);
+  animation: scanWave 2s infinite;
+  border-radius: 2px;
+}
+
+@keyframes scanWave {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    top: calc(100% - 3px);
+    opacity: 1;
+  }
+}
+
+/* Social Links Hover Effects */
+.social-links a {
+  transition: all 0.3s ease;
+  padding: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.social-links a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Contact Info Styling */
+.contact-info a {
+  transition: all 0.3s ease;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.contact-info a:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(5px);
+}
+
+/* Payment Icons */
+.payment-icon {
+  transition: transform 0.3s ease;
+  border-radius: 5px;
+  background: white;
+  padding: 2px;
+}
+
+.payment-icon:hover {
+  transform: scale(1.1);
+}
+
+/* App Download Buttons */
+.app-download {
+  transition: transform 0.3s ease;
+  border-radius: 8px;
+}
+
+.app-download:hover {
+  transform: scale(1.05);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .qr-code {
+    max-width: 120px !important;
+  }
+  
+  .social-links {
+    justify-content: center;
+  }
+  
+  .contact-info {
+    text-align: center;
+  }
+}
+
+/* Simple Footer Styles */
+footer {
+  border-top: 2px solid #dc2626;
+}
+
+.scan-wave {
+  background: linear-gradient(90deg, transparent, #dc2626, transparent);
+}

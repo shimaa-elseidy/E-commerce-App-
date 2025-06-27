@@ -4,7 +4,8 @@ import { CurrencyPipe } from '@angular/common';
 import { Icart } from '../../core/interfaces/icart';
 import { Subscription } from 'rxjs';
 import Swal from 'sweetalert2';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -16,6 +17,8 @@ import { RouterLink } from '@angular/router';
 })
 export class CartComponent implements OnInit , OnDestroy {
   private readonly _CartService=inject(CartService);
+  private readonly _ToastrService=inject(ToastrService);
+  private readonly _Router=inject(Router);
   cartList:Icart={} as Icart;
 
   cartsub!:Subscription;
@@ -24,11 +27,15 @@ export class CartComponent implements OnInit , OnDestroy {
   clearsub!:Subscription;
 
 ngOnInit(): void {
+    if (typeof window !== 'undefined' && !localStorage.getItem('userToken')) {
+      this._Router.navigate(['/login']);
+      return;
+    }
+    
     this.cartsub= this._CartService.getProductCart().subscribe({
       next:(res)=>{ 
-        this.cartList=res.data // {totalCartPrice: ,products:[{}]} //!ana ena 3awza el []of products;
+        this.cartList=res.data;
         console.log(this.cartList);
-        
       }
     })
 }
@@ -39,7 +46,8 @@ delete(id:string):void
     {
       next:(res)=>{
         this.cartList=res.data 
-        
+        this._ToastrService.success('Product deleted successfully from your cart',"success",{positionClass: 'toast-top-center',
+          timeOut:3000,})
         //! important (delete function btrg3 nfs el {} elly rag3 fe ngoninit(),
         //!lazm a3ml kda 34an el html y7s l2n law m3mlt4 kda el backend bs elly hyb2a hass bl changes)
         this._CartService.cartCount.set(res.numOfCartItems)

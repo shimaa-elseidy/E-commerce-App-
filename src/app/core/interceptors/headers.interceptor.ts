@@ -4,7 +4,7 @@ export const headersInterceptor: HttpInterceptorFn = (req, next) => {
   
   
 if (req.url.includes('cart') || req.url.includes('orders') || req.url.includes('wishlist')) {
-  if (localStorage.getItem('userToken') !== null) {
+  if (typeof window !== 'undefined' && localStorage.getItem('userToken') !== null) {
     req = req.clone ( 
       {setHeaders : { token : localStorage.getItem('userToken')!}}
                     )

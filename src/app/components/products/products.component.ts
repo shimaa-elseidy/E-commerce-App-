@@ -19,11 +19,14 @@ import { TranslateModule } from '@ngx-translate/core';
 })
 export class ProductsComponent implements OnInit,OnDestroy {
 
-
   productList:Iproduct[]=[];
   allproductSub!:Subscription;
   addToCartSub!:Subscription;
   text:string='';
+  isLoading:boolean = true;
+  isAddingToCart:boolean = false;
+  
+  Math = Math;
   
   private readonly _HomeServiceService = inject(HomeServiceService);
   private readonly _CartService =inject(CartService);
@@ -31,25 +34,59 @@ export class ProductsComponent implements OnInit,OnDestroy {
 
 
   ngOnInit(): void {
-    this.allproductSub = this._HomeServiceService.getAllProducts().subscribe({  
-      next: (res) => {  
-          this.productList = res.data; 
-      }  
-  });
+    this.loadProducts();
   }
 
-  addToCart(id:any):void
-  {
-    this.addToCartSub=this._CartService.addPropductToCart(id).subscribe({
-      next:(res)=>{console.log(res);
-        this._ToastrService.success('Product added successfully to your cart', 'Success', {
-          positionClass: 'toast-top-center',
-          timeOut:3000,
-      })},
-      error:()=>{
-        this._ToastrService.error('Failed to add product to cart.', 'Error');
+  loadProducts(): void {
+    this.isLoading = true;
+    this.allproductSub = this._HomeServiceService.getAllProducts().subscribe({  
+      next: (res) => {  
+        this.productList = res.data;
+        this.isLoading = false;
       },
-    })
+      error: (err) => {
+        console.error('Error loading products:', err);
+        this.isLoading = false;
+        this._ToastrService.error('Failed to load products. Please try again.', 'Error');
+      }
+    });
+  }
+
+  addToCart(id: any): void {
+    if (typeof window !== 'undefined' && !localStorage.getItem('userToken')) {
+      this._ToastrService.info('Please login to add items to cart', 'Login Required', {
+        positionClass: 'toast-top-right',
+        timeOut: 3000
+      });
+      return;
+    }
+    
+    if (this.isAddingToCart) return;
+    
+    this.isAddingToCart = true;
+    this.addToCartSub = this._CartService.addPropductToCart(id).subscribe({
+      next: (res) => {
+        console.log(res);
+        this._CartService.cartCount.set(res.numOfCartItems);
+        this._ToastrService.success('Product added successfully to your cart! 🛒', 'Success', {
+          positionClass: 'toast-top-right',
+          timeOut: 3000,
+          progressBar: true,
+          closeButton: true
+        });
+        this.isAddingToCart = false;
+      },
+      error: (err) => {
+        console.error('Error adding to cart:', err);
+        this._ToastrService.error('Failed to add product to cart. Please try again.', 'Error', {
+          positionClass: 'toast-top-right',
+          timeOut: 3000,
+          progressBar: true,
+          closeButton: true
+        });
+        this.isAddingToCart = false;
+      }
+    });
   }
 
 

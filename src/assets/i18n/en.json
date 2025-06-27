@@ -1,16 +1,66 @@
-{  
-    "NAV": {  
-        "HOME": "Home",  
-        "PRODUCTS": "Products",  
-        "CATEGORIES": "Categories",  
-        "BRANDS": "Brands",  
+{
+    "NAV": {
+        "HOME": "Home",
+        "PRODUCTS": "Products",
+        "CATEGORIES": "Categories",
+        "BRANDS": "Brands",
+        "CART": "Cart",
+        "ORDERS": "Orders",
+        "PROFILE": "Profile",
         "SIGNOUT": "Sign Out",
-        "LANGUAGE" : "LANG"
-    },  
-    "HOME": {  
-        "POPULAR_CATEGORIES": "Popular Categories🛒",  
-        "POPULAR_PRODUCTS": "Shop Popular Products🛒",  
-        "SEARCH_BY_NAME": "Search by name...",  
-        "ADD_TO_CART": "+Add to cart"  
-    }  
+        "SIGNIN": "Sign In",
+        "REGISTER": "Register",
+        "LANGUAGE": "Language",
+        "WELCOME": "Welcome"
+    },
+    "HOME": {
+        "HERO_TITLE": "Discover Amazing Products",
+        "HERO_SUBTITLE": "Shop the latest trends with unbeatable prices",
+        "POPULAR_CATEGORIES": " Trending Categories",
+        "POPULAR_PRODUCTS": " Featured Products",
+        "SEARCH_BY_NAME": "Search products, brands, categories...",
+        "ADD_TO_CART": "Add to Cart",
+        "VIEW_DETAILS": "View Details",
+        "QUICK_VIEW": "Quick View",
+        "WISHLIST": "Add to Wishlist",
+        "COMPARE": "Compare",
+        "SHARE": "Share"
+    },
+    "PRODUCT": {
+        "PRICE": "Price",
+        "RATING": "Rating",
+        "REVIEWS": "Reviews",
+        "IN_STOCK": "In Stock",
+        "OUT_OF_STOCK": "Out of Stock",
+        "QUANTITY": "Quantity",
+        "DESCRIPTION": "Description",
+        "SPECIFICATIONS": "Specifications",
+        "RELATED_PRODUCTS": "Related Products"
+    },
+    "CART": {
+        "TITLE": "Shopping Cart",
+        "EMPTY": "Your cart is empty",
+        "TOTAL": "Total",
+        "SUBTOTAL": "Subtotal",
+        "SHIPPING": "Shipping",
+        "TAX": "Tax",
+        "CHECKOUT": "Proceed to Checkout",
+        "CONTINUE_SHOPPING": "Continue Shopping",
+        "REMOVE": "Remove",
+        "UPDATE": "Update"
+    },
+    "COMMON": {
+        "LOADING": "Loading...",
+        "ERROR": "Something went wrong",
+        "SUCCESS": "Success!",
+        "CANCEL": "Cancel",
+        "CONFIRM": "Confirm",
+        "SAVE": "Save",
+        "EDIT": "Edit",
+        "DELETE": "Delete",
+        "BACK": "Back",
+        "NEXT": "Next",
+        "PREVIOUS": "Previous",
+        "CLOSE": "Close"
+    }
 }

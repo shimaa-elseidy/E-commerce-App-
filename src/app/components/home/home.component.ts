@@ -10,13 +10,12 @@ import { SearchPipePipe } from '../../core/pipes/search-pipe.pipe';
 import { FormsModule } from '@angular/forms';
 import { CartService } from '../../core/services/cart.service';
 import { ToastrService } from 'ngx-toastr';
-import { TranslateModule, TranslatePipe } from '@ngx-translate/core';
-
+import { TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CarouselModule,RouterLink,CurrencyPipe,SearchPipePipe,FormsModule,TranslateModule,NgFor],
+  imports: [CarouselModule,RouterLink,CurrencyPipe,SearchPipePipe,FormsModule,TranslateModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -24,6 +23,8 @@ export class HomeComponent implements OnInit ,OnDestroy{
 private readonly _HomeServiceService = inject(HomeServiceService);
 private readonly _CartService =inject(CartService);
 private readonly _ToastrService = inject(ToastrService);
+
+Math = Math;
 
 productList:WritableSignal<Iproduct[]> = signal([]);
 categoriesList:WritableSignal<Icategory[]> = signal([]);
@@ -96,14 +97,26 @@ customOptionsCategories: OwlOptions = {
   nav: false
 }
 
+onShopDealsClick(): void {
+  // Animation handled by CSS
+}
+
 addToCart(id:any):void
 {
+  if (typeof window !== 'undefined' && !localStorage.getItem('userToken')) {
+    this._ToastrService.info('Please login to add items to cart', 'Login Required', {
+      positionClass: 'toast-top-center',
+      timeOut: 3000
+    });
+    return;
+  }
+  
   this.addtocartSub=this._CartService.addPropductToCart(id).subscribe({
     next:(res)=>{console.log(res);
       
       this._ToastrService.success('Product added successfully to your cart', 'Success', {
-        positionClass: 'toast-top-start',
-        timeOut:1000,
+        positionClass: 'toast-top-center',
+        timeOut:3000,
     })
     this._CartService.cartCount.set(res.numOfCartItems);
   },
@@ -112,16 +125,9 @@ addToCart(id:any):void
     },
   })
 }
-
-
-
-
 ngOnDestroy(): void {
     this.productSub?.unsubscribe();
     this.categorySub?.unsubscribe();
     this.addtocartSub?.unsubscribe();
 }
-
-
-
 }

@@ -1,18 +1,66 @@
-{  
-    "NAV": {  
-        "HOME": "الرئيسية",  
-        "PRODUCTS": "المنتجات",  
-        "CATEGORIES": "الفئات",  
-        "BRANDS": "العلامات التجارية",  
-        "SIGNOUT": "تسجيل الخروج",  
-        "REGISTER": "تسجيل",  
-        "LOGIN": "تسجيل الدخول",  
-        "LANGUAGE": "اللغة"  
-    },  
-    "HOME": {  
-        "POPULAR_CATEGORIES": "الفئات الشائعة🛒",  
-        "POPULAR_PRODUCTS": "تسوق المنتجات الشائعة 🛒",  
-        "SEARCH_BY_NAME": "ابحث بالاسم...",  
-        "ADD_TO_CART": "+أضف إلى السلة"  
-    }  
+{
+    "NAV": {
+        "HOME": "الرئيسية",
+        "PRODUCTS": "المنتجات",
+        "CATEGORIES": "الفئات",
+        "BRANDS": "العلامات التجارية",
+        "CART": "السلة",
+        "ORDERS": "الطلبات",
+        "PROFILE": "الملف الشخصي",
+        "SIGNOUT": "تسجيل الخروج",
+        "SIGNIN": "تسجيل الدخول",
+        "REGISTER": "إنشاء حساب",
+        "LANGUAGE": "اللغة",
+        "WELCOME": "مرحباً"
+    },
+    "HOME": {
+        "HERO_TITLE": "اكتشف منتجات مذهلة",
+        "HERO_SUBTITLE": "تسوق أحدث الصيحات بأسعار لا تُقاوم",
+        "POPULAR_CATEGORIES": " الفئات الرائجة",
+        "POPULAR_PRODUCTS": " المنتجات المميزة",
+        "SEARCH_BY_NAME": "ابحث عن المنتجات، العلامات التجارية، الفئات...",
+        "ADD_TO_CART": "أضف للسلة",
+        "VIEW_DETAILS": "عرض التفاصيل",
+        "QUICK_VIEW": "عرض سريع",
+        "WISHLIST": "أضف للمفضلة",
+        "COMPARE": "مقارنة",
+        "SHARE": "مشاركة"
+    },
+    "PRODUCT": {
+        "PRICE": "السعر",
+        "RATING": "التقييم",
+        "REVIEWS": "المراجعات",
+        "IN_STOCK": "متوفر",
+        "OUT_OF_STOCK": "غير متوفر",
+        "QUANTITY": "الكمية",
+        "DESCRIPTION": "الوصف",
+        "SPECIFICATIONS": "المواصفات",
+        "RELATED_PRODUCTS": "منتجات ذات صلة"
+    },
+    "CART": {
+        "TITLE": "سلة التسوق",
+        "EMPTY": "سلتك فارغة",
+        "TOTAL": "الإجمالي",
+        "SUBTOTAL": "المجموع الفرعي",
+        "SHIPPING": "الشحن",
+        "TAX": "الضريبة",
+        "CHECKOUT": "إتمام الطلب",
+        "CONTINUE_SHOPPING": "متابعة التسوق",
+        "REMOVE": "إزالة",
+        "UPDATE": "تحديث"
+    },
+    "COMMON": {
+        "LOADING": "جاري التحميل...",
+        "ERROR": "حدث خطأ ما",
+        "SUCCESS": "تم بنجاح!",
+        "CANCEL": "إلغاء",
+        "CONFIRM": "تأكيد",
+        "SAVE": "حفظ",
+        "EDIT": "تعديل",
+        "DELETE": "حذف",
+        "BACK": "رجوع",
+        "NEXT": "التالي",
+        "PREVIOUS": "السابق",
+        "CLOSE": "إغلاق"
+    }
 }

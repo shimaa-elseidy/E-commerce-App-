@@ -1,35 +1,201 @@
-<section class="my-2 py-5 ">
-    <h2 class="text-main fw-bolder fs-4 my-3 text-center">{{'HOME.POPULAR_PRODUCTS'|translate}}</h2>
-    <input [(ngModel)]='text' type="search" class="w-50 form-control mx-auto my-2 rounded-5" placeholder="Search by name...">
-    <div> 
-        <div class="row g-3 my-1">
-            @for (product of productList | searchPipe:text; track product.id) {
-                <div class="col-md-2">
-                    <div class="product card p-2">
-                        <div>
-                            <div [routerLink]="['/details', product.id]">
-                                <img [src]="product.imageCover" [alt]="product.title" class="w-100">
-                                <h3 class="small text-main mt-1 fw-bold text-center">{{product.category.name}}</h3>
-                                <h4 class="h6 mt-1 text-center">{{product.title.split(' ',2).join(' ')}}</h4>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="text-main fw-bold">{{product.price | currency:'GBP' }}</span>
-                                    <div>
-                                        @for (star of [1,2,3,4,5].slice(0,product.ratingsAverage); track $index) 
-                                            {
-                                                <span><i class="fas fa-star rating-color"></i></span>
-                                            }
-                                            @if (product.ratingsAverage %1 !== 0) {
-                                                <i class="fas fa-star-half-stroke rating-color"></i>
-                                            }
-                                            <span class="text-muted">{{product.ratingsAverage}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                                <div><button (click)="addToCart(product.id)" class= "btn btn-main mt-1 w-100 rounded-4 ">+Add to cart</button></div>
+<section class="products-page py-5" style="margin-top: 80px;">
+    <div class="container">
+        <!-- Page Header -->
+        <div class="page-header text-center mb-5 animate-fadeInUp">
+            <h1 class="display-5 fw-bold text-main mb-3">{{'HOME.POPULAR_PRODUCTS'|translate}}</h1>
+            <div class="section-divider mx-auto mb-4"></div>
+            <p class="lead text-muted">Discover our complete collection of premium products</p>
+        </div>
+        
+        <!-- Search and Filters -->
+        <div class="search-filters-section mb-5 animate-slideInRight">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <div class="search-container position-relative">
+                        <input [(ngModel)]='text' 
+                               type="search" 
+                               class="form-control search-input pe-5" 
+                               placeholder="{{'HOME.SEARCH_BY_NAME'|translate}}">
+                        <i class="fas fa-search position-absolute top-50 end-0 translate-middle-y me-3 text-muted"></i>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="d-flex justify-content-end gap-3">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" style="border: 1px solid #EF1603; color: #EF1603;" type="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-sort me-2"></i>Sort By
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Price: Low to High</a></li>
+                                <li><a class="dropdown-item" href="#">Price: High to Low</a></li>
+                                <li><a class="dropdown-item" href="#">Rating</a></li>
+                                <li><a class="dropdown-item" href="#">Newest</a></li>
+                            </ul>
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" style="border: 1px solid #EF1603; color: #EF1603;" type="button" data-bs-toggle="dropdown">
+                                <i class="fas fa-filter me-2"></i>Filter
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">All Categories</a></li>
+                                <li><a class="dropdown-item" href="#">Electronics</a></li>
+                                <li><a class="dropdown-item" href="#">Fashion</a></li>
+                                <li><a class="dropdown-item" href="#">Home & Garden</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-            }
             </div>
+        </div>
+        
+        <!-- Loading Skeleton -->
+        @if (isLoading) {
+            <div class="products-grid">
+                <div class="row g-4">
+                    @for (item of [1,2,3,4,5,6,7,8]; track $index) {
+                        <div class="col-xl-3 col-lg-4 col-md-6">
+                            <div class="card border-0 h-100 shadow-sm">
+                                <div class="loading-skeleton" style="height: 250px; border-radius: 0.5rem 0.5rem 0 0;"></div>
+                                <div class="card-body p-4">
+                                    <div class="loading-skeleton mb-2" style="height: 16px; width: 60%;"></div>
+                                    <div class="loading-skeleton mb-3" style="height: 20px; width: 80%;"></div>
+                                    <div class="loading-skeleton mb-3" style="height: 16px; width: 40%;"></div>
+                                    <div class="loading-skeleton mb-3" style="height: 24px; width: 50%;"></div>
+                                </div>
+                                <div class="card-footer bg-transparent border-0 p-4 pt-0">
+                                    <div class="loading-skeleton" style="height: 40px; border-radius: 0.5rem;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+        
+        <!-- Products Grid -->
+        @if (!isLoading) {
+            <div class="products-grid animate-fadeInUp">
+                <div class="row g-4">
+                    @for (product of productList | searchPipe:text; track product.id) {
+                    <div class="col-xl-3 col-lg-4 col-md-6">
+                        <div class="product card border-0 h-100 shadow-sm" style="animation-delay: {{$index * 0.05}}s;">
+                            <div class="product-image-wrapper position-relative overflow-hidden">
+                                <img [src]="product.imageCover" 
+                                     [alt]="product.title" 
+                                     class="card-img-top product-image" 
+                                     style="height: 250px; object-fit: cover;"
+                                     [routerLink]="['/details', product.id]">
+                                
+                                <!-- Product Actions -->
+                                <div class="product-actions position-absolute top-0 end-0 p-3">
+                                    <button class="btn btn-sm btn-light rounded-circle mb-2 shadow-sm" 
+                                            title="Add to Wishlist">
+                                        <i class="fas fa-heart"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-light rounded-circle mb-2 shadow-sm" 
+                                            title="Quick View">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-light rounded-circle shadow-sm" 
+                                            title="Compare">
+                                        <i class="fas fa-balance-scale"></i>
+                                    </button>
+                                </div>
+                                
+                                <!-- Discount Badge -->
+                                <div class="position-absolute top-0 start-0 p-3">
+                                    <span class="badge bg-danger animate-pulse">-20%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="card-body p-4">
+                                <!-- Category -->
+                                <div class="product-category text-uppercase small fw-semibold text-primary mb-2">
+                                    {{product.category.name}}
+                                </div>
+                                
+                                <!-- Title -->
+                                <h5 class="product-title card-title mb-3" [routerLink]="['/details', product.id]">
+                                    {{product.title.split(' ',3).join(' ')}}
+                                </h5>
+                                
+                                <!-- Rating -->
+                                <div class="rating-stars mb-3">
+                                    @for (star of [1,2,3,4,5].slice(0,Math.floor(product.ratingsAverage)); track $index) {
+                                        <i class="fas fa-star rating-star"></i>
+                                    }
+                                    @if (product.ratingsAverage % 1 !== 0) {
+                                        <i class="fas fa-star-half-alt rating-star"></i>
+                                    }
+                                    <span class="rating-value ms-2">({{product.ratingsAverage}})</span>
+                                </div>
+                                
+                                <!-- Price -->
+                                <div class="price-section mb-3">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="product-price h5 mb-0 text-success fw-bold">
+                                            {{product.price | currency:'USD':'symbol':'1.0-0'}}
+                                        </span>
+                                        <small class="text-muted text-decoration-line-through">
+                                            {{(product.price * 1.25) | currency:'USD':'symbol':'1.0-0'}}
+                                        </small>
+                                        <span class="badge bg-success-subtle text-success">Save 20%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Card Footer -->
+                            <div class="card-footer bg-transparent border-0 p-4 pt-0">
+                                <div class="d-grid gap-2">
+                                    <button (click)="addToCart(product.id)" 
+                                            [disabled]="isAddingToCart"
+                                            class="btn d-flex align-items-center justify-content-center" style="background-color: #EF1603; color: white; border: 1px solid #EF1603;">
+                                        @if (isAddingToCart) {
+                                            <div class="spinner-border spinner-border-sm me-2" role="status">
+                                                <span class="visually-hidden">Loading...</span>
+                                            </div>
+                                            Adding...
+                                        } @else {
+                                            <i class="fas fa-shopping-cart me-2"></i>
+                                            {{'HOME.ADD_TO_CART'|translate}}
+                                        }
+                                    </button>
+                                    <button class="btn btn-sm" 
+                                            style="border: 1px solid #EF1603; color: #EF1603;"
+                                            [routerLink]="['/details', product.id]">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        }
+        
+        <!-- No Products Found -->
+        @if (!isLoading && (productList | searchPipe:text).length === 0) {
+            <div class="text-center py-5">
+                <div class="mb-4">
+                    <i class="fas fa-search fa-4x text-muted"></i>
+                </div>
+                <h3 class="text-muted mb-3">No products found</h3>
+                <p class="text-muted">Try adjusting your search or filter criteria</p>
+                <button class="btn btn-primary" (click)="text = ''; loadProducts()">
+                    <i class="fas fa-refresh me-2"></i>
+                    Show All Products
+                </button>
+            </div>
+        }
+        
+        <!-- Load More Button -->
+        <div class="text-center mt-5 animate-fadeInUp">
+            <button class="btn btn-lg" style="background-color: #EF1603; color: white;">
+                <i class="fas fa-plus me-2"></i>
+                Load More Products
+            </button>
+        </div>
     </div>
 </section>
