@@ -90,8 +90,7 @@ body {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-y: auto;
-  height: 100vh;
+  padding-top: 100px !important;
 }
 
 /* Scrollbar Styling */
