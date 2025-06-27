@@ -132,6 +132,14 @@ export const routes: Routes = [
                     ),
                 title: 'all orders 🛒',
             },
+            {
+                path: 'dashboard',
+                loadComponent: () =>
+                    import('./components/dashboard/dashboard.component').then(
+                    (m) => m.DashboardComponent
+                    ),
+                title: 'Admin Dashboard 📊',
+            },
         ]
     },
     {
